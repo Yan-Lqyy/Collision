@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Sphere Simulation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            color: #333; /* Darker text for readability */
+            font-size: 0.9em;
+        }
+        #controls label, #controls input {
+            display: block; /* Stack labels and inputs */
+            margin-bottom: 5px;
+        }
+        #controls input[type="number"] {
+            width: 60px; /* Smaller number inputs */
+            margin-right: 5px;
+        }
+        #controls button {
+            margin-top: 10px;
+            margin-right: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #controls .input-group label {
+            display: inline-block; /* Keep XYZ labels next to inputs */
+            width: 20px;
+        }
+         #controls .input-group input {
+            display: inline-block;
+        }
+        #addSphereForm > div {
+            margin-bottom: 8px; /* Spacing between input groups */
+        }
+         #deleteInstructions {
+             margin-top: 15px;
+             font-style: italic;
+             font-size: 0.85em;
+         }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <button id="resetButton">Reset Simulation</button>
+        <hr>
+        <h4>Add Sphere</h4>
+        <form id="addSphereForm">
+             <div class="input-group">
+                 <strong>Position:</strong><br>
+                 <label for="posX">X:</label><input type="number" id="posX" value="0">
+                 <label for="posY">Y:</label><input type="number" id="posY" value="0">
+                 <label for="posZ">Z:</label><input type="number" id="posZ" value="0">
+            </div>
+             <div class="input-group">
+                 <strong>Velocity:</strong><br>
+                 <label for="velX">X:</label><input type="number" id="velX" value="5">
+                 <label for="velY">Y:</label><input type="number" id="velY" value="0">
+                 <label for="velZ">Z:</label><input type="number" id="velZ" value="0">
+            </div>
+             <div>
+                 <label for="radius">Radius:</label>
+                 <input type="number" id="radius" value="1.0" step="0.1" min="0.1">
+             </div>
+            <button type="button" id="addSphereButton">Add Sphere</button>
+        </form>
+        <div id="deleteInstructions">Click on a sphere to delete it.</div>
+    </div>
+    <div id="simulationCanvasContainer"></div>
+
+<!-- Import Three.js -->
+<script type="importmap">
+    {
+        "imports": {
+            "three": "{{ url_for('static', filename='three.module.min.js') }}"
+        }
+    }
+    </script>
+
+    <!-- Import your client-side logic -->
+    <script type="module" src="{{ url_for('static', filename='client.js') }}"></script>
+</body>
+</html>
